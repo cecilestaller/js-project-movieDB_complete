@@ -1030,12 +1030,16 @@ const searchInput = document.body.querySelector('#movie-input');
 const search = () => {
     searchInputValue = searchInput.value.trim();
     movieOutput.innerHTML = " ";
-    matchingMovies = [];
 
     const myMovie = movies.filter((elt) => {
         if(elt.join(" ").toLowerCase().includes(searchInputValue.toLowerCase())) {
-            matchingMovies.push(elt);
-            matchingMovies.forEach((elt) => movieOutput.innerHTML += `<div>
+            
+            return elt
+        };
+    });
+
+    console.log(myMovie);
+    myMovie.forEach((elt) => movieOutput.innerHTML += `<div>
             <h2>${elt[0]}</h2>
             <h4>${elt[1]}</h4>
             <h3>${elt[2]}</h3>
@@ -1043,10 +1047,7 @@ const search = () => {
             <p>${elt[4].join(" <br>")}</p>
             <p>${elt[5]}</p>
             </div>`);
-        };
-    });
-
-    if(!movies.join(" ").toLowerCase().includes(searchInputValue.toLowerCase())) {
+    if(myMovie.length <= 0) {
         movieOutput.innerHTML = `<div>
         <h2>Film not found</h2>
         </div>`;
@@ -1081,3 +1082,5 @@ const bestRanked = () => {
     arrayKopie.sort((ratingA, ratingB) => ratingB[5] - ratingA[5]);
     showValues(arrayKopie); 
 };
+
+// Sortier-Funktionen könnnen auch in EINE function geschrieben werden, wenn im HTML dem onclick Event Argumente vergeben werden, die innerhalb if abfrage dann als parameter dargestellt werden
